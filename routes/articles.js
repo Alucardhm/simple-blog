@@ -25,12 +25,12 @@ router.get('/:slug', async(req,res) => {
 router.post('/', async(req,res,next) => {
    req.article = new Article()
    next() // ir para o saveArticleAndRedirect
-}, saveArticleAndRedirect('new') )
+}, saveArticleAndRedirect('new') ) // cria uma sequencia de middleware functions
 
 router.put('/:id', async(req,res,next) => {
     req.article = await Article.findById(req.params.id)
     next() // ir para o saveArticleAndRedirect
- }, saveArticleAndRedirect('edit') )
+ }, saveArticleAndRedirect('edit') ) // cria uma sequencia de middleware functions
  
 
 router.delete('/:id', async(req,res) => {
@@ -39,7 +39,7 @@ router.delete('/:id', async(req,res) => {
 })
 
  function saveArticleAndRedirect(path){
-     return async (req,res) => {
+     return async (req,res) => { // como é uma middleware function ela tem acesso ao req,res
         let article = req.article
         article.title = req.body.title,
         article.description = req.body.description,
